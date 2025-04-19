@@ -72,75 +72,84 @@ npm test
 
 ### FAQ
 
-##### What kind of project structure is used here?
+#### What kind of project structure is used here?
 
-This project uses a **Layered + Modular structure**, sometimes also referred to as **"Flat Layered Structure"**.  
-The code is organized by technical responsibility:
+This project follows a **feature-based modular architecture**.  
+Each feature (such as `habit` and `auth`) is implemented as a self-contained module containing its own controller, service, repository, and type definitions.
 
-- `controllers/` handle HTTP logic
-- `services/` contain business logic
-- `repositories/` manage persistence
-- `auth/` is treated as a self-contained feature folder (hybrid)
+This structure is inspired by Domain-Driven Design (DDD) and helps maintain clear separation of concerns.
 
-##### Why not use a fully feature-based structure?
+#### Why is everything grouped under `/modules/`?
 
-In a **feature-based structure**, code is organized by feature instead of layer.  
+Grouping features under `modules/` keeps the codebase organized and scalable.  
+It ensures:
 
-While this approach works well for larger teams or apps with many features, it can add **unnecessary complexity** in smaller projects or coding challenges.  
+- All feature-related logic is colocated
+- Clear boundaries between domains
+- Easier refactoring or modularization in the future
 
-**This project uses a layered structure** to keep it:
+#### Why not use a flat layered structure?
 
-- Simple and readable
-- Familiar for most developers
-- Easy to explain and extend
+While a flat structure with folders like `controllers/`, `services/`, and `repositories/` can work in smaller apps, it quickly becomes unmanageable as the application grows.  
+A feature-based structure helps:
 
-> However, the auth module is organized as a **feature folder** to demonstrate flexibility and show that feature-based architecture is also possible.
+- Keep related files together
+- Reduce cross-feature coupling
+- Make testing and navigation easier
 
-##### Why not use a fully Feature-Based folder structure (e.g., `habit/`, `auth/` as self-contained modules)?
+#### Can this project be converted into a flat (layout) structure?
 
-A full Feature-Based Architecture is ideal when:
+Yes. It would be possible to move controllers, services, and repositories into global folders like `controllers/`, `services/`, and `repositories/`.  
+However, that would:
 
-- You have many distinct domains or modules
-- Teams are working in parallel on isolated features
-- The application has grown in complexity
+- Reduce modularity
+- Make it harder to reason about feature-specific logic
+- Be less scalable as new domains are added
 
-In this project, I used Feature-Based structure **selectively** (e.g., for `auth/`) where it made sense. Habit logic is more layered and cohesive, so a layered structure was a better fit for clarity and separation of concerns.
+This project intentionally uses a modular structure to demonstrate best practices and readiness for future growth.
 
-If the project grows further (e.g., adds users, analytics, scheduling), it can easily be refactored into full feature modules without major restructuring.
+#### Why use DTOs like `HabitCreateDto` and `LoginDto`?
 
-##### Why is the `auth.controller.ts` placed in a separate `auth/` folder and not in `controllers/`?
+DTOs (Data Transfer Objects) define the structure of expected inputs.  
+They improve:
 
-Because authentication is treated as a self-contained feature module. It includes not only a controller, but also user config and token management. Grouping these under `auth/` follows the feature-based organization principle.
+- Type safety
+- Readability of request handling
+- Integration with validation tools like Zod or Joi
+- Testability of API endpoints
 
-##### How does the repository switching between memory and file work?
+#### Why is `auth/` a separate module?
 
-The repository type is controlled by the `REPO_TYPE` variable in the `.env` file. The app dynamically chooses the appropriate implementation (`InMemoryHabitRepository` or `FileHabitRepository`) at runtime.
+Authentication logic often includes multiple components like controller, config, token management, and middleware.  
+Placing them under a dedicated `auth/` module allows encapsulation and flexibility for future expansion.
 
-##### Why are the habit route paths defined as `/habits` instead of just `/`?
+#### Why is `middleware/` outside `modules/`?
 
-To make the route definitions self-contained and clear. This approach improves readability and makes the routes reusable if mounted at different base paths.
+Middlewares are often shared across multiple features and routes.  
+Placing them in a global `middleware/` folder keeps them reusable and framework-agnostic.
 
-##### Why is the folder name `services/` plural, but `config/` is singular?
+#### Why is the repository selected dynamically?
 
-Plural folder names like `services/`, `controllers/`, and `repositories/` hold multiple related files of the same type. `config/` is singular because it's a single entry point for project-wide configuration and doesn't represent a collection of similar components.
+The repository implementation (in-memory vs. file-based) is selected at runtime based on the environment variable `REPO_TYPE`.  
+This allows for easy switching between development and production environments.
 
-##### Why not use one big file for routes and logic?
+#### Why are some folder names singular (e.g., `repository/`)?
 
-While possible for small scripts, combining all logic into one file leads to tight coupling, poor readability, and difficulties in testing or extending the codebase. This project aims to reflect best practices in real-world development.
+Singular folder names like `repository/`, `service/`, and `controller/` reflect their purpose within a single feature.  
+Plural forms are usually reserved for global/shared collections, which this structure avoids for better modularity.
 
-##### Why use a separate `config.ts` instead of directly reading from `process.env`?
+### References
 
-Using a centralized `config.ts` file improves maintainability, helps avoid typos in environment variable names, and makes testing or mocking configurations easier.
+This project is inspired by modern best practices for scalable Node.js and TypeScript backend development.
 
-## References
+- [NestJS Documentation – Modular Architecture](https://docs.nestjs.com/modules)  
+  While NestJS is a framework, its concepts around modularity and layering are broadly applicable.
 
-This project was inspired and guided by modern JavaScript and backend architecture practices. Notable references include:
+- [DDD Community – Official Site](https://domainlanguage.com/ddd/)  
+  The official site from Eric Evans, the originator of Domain-Driven Design.
 
-- [Express.js Documentation](https://expressjs.com/)
-- [TypeScript Handbook](https://www.typescriptlang.org/docs/)
-- [Clean Architecture Principles](https://dev.to/thatanjan/clean-architecture-in-node-js-2ehf)
-- [Jest](https://jestjs.io/) – JavaScript testing framework
-- [Supertest](https://github.com/ladjs/supertest) – HTTP assertions for integration testing
-- [dotenv](https://github.com/motdotla/dotenv) – Environment variable support
-- [date-fns](https://date-fns.org/) – Modern date utility library
-- [Conventional Commits](https://www.conventionalcommits.org/) – For consistent commit messages
+- [Microsoft TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html)  
+  Official TypeScript documentation, recommended for typing, structuring, and modularization practices.
+
+- [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)  
+  Standard format for commit messages used to improve clarity and automate releases.
