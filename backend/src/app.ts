@@ -1,10 +1,18 @@
 import express from "express";
+import authRoutes from "./routes/auth.routes";
 import habitRoutes from "./routes/habit.routes";
+import { authMiddleware } from "./middleware/auth.middleware";
 
 const app = express();
 
+// Middlewares
 app.use(express.json());
-app.use("/api/v1", habitRoutes);
+
+// Public routes (no auth)
+app.use("/api/v1", authRoutes);
+
+// Protected routes (with auth)
+app.use("/api/v1", authMiddleware, habitRoutes);
+
 
 export default app;
-
