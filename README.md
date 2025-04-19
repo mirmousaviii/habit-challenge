@@ -42,8 +42,43 @@ Users can create daily habits, toggle completion for today, and manage their hab
 
 - Node.js 18+
 - npm 9+
+- Docker (optional, for containerization)
 
-#### Setup Backend
+### Running the App by Docker
+
+JUST RUN THIS LINE:
+
+```bash
+docker-compose up --build
+```
+
+This command will:
+
+- Start Backend [http://localhost:5011](http://localhost:3000)
+- Start Frontend [http://localhost:3000](http://localhost:5173)
+
+### Verifying the Services
+
+```bash
+# Status
+docker ps 
+
+# Backend LOG
+docker logs habit_backend
+
+# Frontend LOG
+docker logs habit_frontend
+
+```
+
+### Stopping the Containers
+
+```bash
+docker-compose down
+```
+
+
+#### Setup Backend manually
 
 ```bash
 cd backend
@@ -59,7 +94,7 @@ npm run build && npm start  # for production
 
 The API will be accessible at `http://localhost:3000` (or your configured PORT)
 
-#### Setup Frontend
+#### Setup Frontend manually
 
 ```bash
 cd frontend
@@ -106,7 +141,7 @@ npm test
 - [ ] Add pagination to GET /habits
 - [ ] Add timestamps (createdAt / updatedAt) to habits
 - [ ] Use a real database (e.g. PostgreSQL)
-- [ ] Dockerize the backend
+- [x] Dockerize the backend
 - [ ] Add GitHub Actions for CI (lint, test, build, publish)
 - [ ] Document the API using Swagger
 
@@ -124,7 +159,7 @@ npm test
 - [x] Toggle habit as done/not done for today
 - [x] Delete a habit
 - [x] Loading and error handling
-- [ ] Dockerize the frontend
+- [x] Dockerize the frontend
 - [ ] Improve directory structure and file naming conventions
 - [ ] Add unit tests
 - [ ] ESLinting and Prettier for code formatting
@@ -132,7 +167,7 @@ npm test
 ##### Others
 - [ ] Add CI/CD pipeline for automated testing and deployment
 - [ ] E2E testing for the entire application
-- [ ] Dockerize the app (frontend + backend)
+- [x] Dockerize by docker-compose the app (frontend + backend)
 
 ## FAQ
 

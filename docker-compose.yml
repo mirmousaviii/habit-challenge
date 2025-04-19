@@ -1,0 +1,31 @@
+services:
+
+  backend:
+    build: ./backend
+    container_name: habit_backend
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./backend/.env
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    command: >
+      sh -c "
+      npm run dev
+      "
+
+  frontend:
+    build: ./frontend
+    container_name: habit_frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      VITE_API_URL: http://backend:3000/api/v1
+    depends_on:
+      - backend
