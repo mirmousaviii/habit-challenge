@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { HabitService } from "./habit.service";
+import { HabitCreateDto } from "./habit.model";
 
 export class HabitController {
   constructor(private habitService: HabitService) {}
@@ -15,7 +16,7 @@ export class HabitController {
 
   createHabit = async (req: Request, res: Response): Promise<void> => {
     try {
-      const { name, description } = req.body;
+      const { name, description } = req.body as HabitCreateDto;
 
       if (!name) {
         res.status(400).json({ message: "Name is required" });
