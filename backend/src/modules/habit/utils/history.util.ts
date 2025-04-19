@@ -1,10 +1,10 @@
-/**
- * Returns the most recent date from the list of ISO 8601 formatted date strings (YYYY-MM-DD).
- * Assumes all input strings follow correct ISO format.
- */
-// TODO: Use a date library like date-fns or dayjs for better date handling
+import { parseISO, max, format } from "date-fns";
+
 export function getLastCompletedDate(dates: string[]): string | null {
     if (!dates.length) return null;
 
-    return [...dates].sort((a, b) => b.localeCompare(a))[0]; // latest ISO string
-  }
+    const parsedDates = dates.map((date) => parseISO(date));
+    const latestDate = max(parsedDates);
+
+    return format(latestDate, "yyyy-MM-dd"); // Return in YYYY-MM-DD format
+}
