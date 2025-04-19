@@ -1,5 +1,6 @@
+import { config } from "../config/config";
+
 export const mockUser = {
-    username: "user1",
-    password: "pass01@habit",
-  };
-  
+  username: config.auth.username,
+  password: config.auth.password,
+};
