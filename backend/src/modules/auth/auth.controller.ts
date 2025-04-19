@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { v4 as uuidv4 } from "uuid";
-import { mockUser } from "../../utils/mock-user";
-import { TokenStore } from "../../utils/token-store";
+import { mockUser } from "@utils/mock-user";
+import { TokenStore } from "@utils/token-store";
 
 export const login = (req: Request, res: Response): void => {
   const { username, password } = req.body;

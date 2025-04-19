@@ -2,7 +2,7 @@ import { Habit } from "../habit.model";
 import { HabitRepository } from "./habit.repository.interface";
 import { promises as fs } from "fs";
 import { v4 as uuidv4 } from "uuid";
-import { config } from "../../../core/config";
+import { config } from "@core/config";
 
 export class FileHabitRepository implements HabitRepository {
   private filePath = config.dataFilePath;
