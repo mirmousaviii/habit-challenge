@@ -46,7 +46,7 @@ const HabitDashboard = () => {
         <p className="text-gray-600">No habits found.</p>
       )}
       {!loading && habits.length > 0 && (
-        <HabitList habits={habits} />
+        <HabitList habits={habits} onChange={fetchHabits} />
       )}
     </div>
   );
