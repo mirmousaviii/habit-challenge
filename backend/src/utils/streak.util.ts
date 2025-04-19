@@ -2,7 +2,7 @@ import { parseISO, subDays, isSameDay } from "date-fns";
 
 export function calculateStreak(completedDates: string[]): number {
   const sortedDates = [...completedDates]
-    .map(parseISO)
+    .map((d) => parseISO(d))
     .sort((a, b) => b.getTime() - a.getTime());
 
   let streak = 0;
