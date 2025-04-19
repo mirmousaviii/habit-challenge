@@ -3,9 +3,9 @@ import { HabitWithMeta } from "../types/habit.types";
 import HabitForm from "../components/HabitForm";
 import HabitList from "../components/HabitList";
 import Layout from "@layouts/AppLayout";
-import { useHabits } from "../hooks/useHabits";
+import { useHabits } from "@hooks/useHabits";
 
-export const HabitDashboardView = () => {
+export const HabitDashboard = () => {
     const [isFormOpen, setIsFormOpen] = useState(false);
     const { habits, isLoading, error, toggleHabit, deleteHabit, fetchHabits } = useHabits();
 

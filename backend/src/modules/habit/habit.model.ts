@@ -5,7 +5,7 @@
  *
  * - habit.model.ts        → contains the main Habit entity/interface
  * - habit.dto.ts          → contains CreateHabitDto and other data transfer objects
- * - habit.types.ts        → contains extended types like HabitWithMeta, etc.
+ * - habit.types.ts        → contains extended types
  */
 
 // Habit model representing a habit entity
@@ -23,6 +23,11 @@ export interface HabitCreateDto {
 }
 
 // Extended Habit type with additional metadata
+export interface HabitWithMeta extends Habit {
+  streak: number;
+  lastCompletedDate: string | null;
+}
+
 // TODO: Add database as a repository type in the future
 export enum RepositoryType {
   MEMORY = "memory",

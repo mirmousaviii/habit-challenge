@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from "axios";
-import { API_URL, API_TIMEOUT, STORAGE_KEYS } from "../config";
+import { API_URL, API_TIMEOUT, STORAGE_KEYS } from "../core/config";
 
 export interface ErrorResponse {
   error: {
@@ -32,7 +32,7 @@ export class ApiError extends Error {
 /**
  * Create and configure axios instance
  */
-export const api = axios.create({
+export const http = axios.create({
   baseURL: API_URL,
   headers: {
     "Content-Type": "application/json",
@@ -43,7 +43,7 @@ export const api = axios.create({
 /**
  * Request interceptor for adding auth token
  */
-api.interceptors.request.use(
+http.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     const token = localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN);
     if (token) {
@@ -57,7 +57,7 @@ api.interceptors.request.use(
 /**
  * Response interceptor for handling errors
  */
-api.interceptors.response.use(
+http.interceptors.response.use(
   (response: AxiosResponse<SuccessResponse>) => response,
   (error: AxiosError<ErrorResponse>) => {
     if (error.response) {

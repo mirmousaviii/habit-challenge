@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { LoginDto } from "./auth.model";
 import { v4 as uuidv4 } from "uuid";
-import { mockUser } from "@utils/mock-user";
-import { TokenStore } from "@utils/token-store";
+import { mockUser } from "./utils/mock-user.util";
+import { TokenStore } from "@utils/token-store.util";
 import { errorResponse, successResponse } from "@utils/response.util";
 
 export const login = (req: Request, res: Response): void => {

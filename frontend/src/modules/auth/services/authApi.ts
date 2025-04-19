@@ -1,4 +1,5 @@
-import { api, handleApiResponse, handleApiError, SuccessResponse, API_ENDPOINTS } from "@modules/core";
+import { http, handleApiResponse, handleApiError, SuccessResponse } from "@utils/http";
+import { API_ENDPOINTS } from "@core/config";
 import { LoginCredentials, LoginResponse } from "../types/auth.types";
 
 /**
@@ -8,7 +9,7 @@ export const loginUser = async (
   credentials: LoginCredentials
 ): Promise<string> => {
   try {
-    const res = await api.post<SuccessResponse<LoginResponse>>(API_ENDPOINTS.AUTH.LOGIN, credentials);
+    const res = await http.post<SuccessResponse<LoginResponse>>(API_ENDPOINTS.AUTH.LOGIN, credentials);
     return handleApiResponse(res).token;
   } catch (error) {
     throw handleApiError(error);

@@ -1,0 +1,60 @@
+/* 
+ * Example of vanilla CSS.
+ * This code demonstrates how to style elements using plain CSS without any preprocessor or framework.
+ * It includes standard CSS properties and selectors to define styles for HTML elements.
+ */
+
+.login-form {
+  background-color: white;
+  padding: 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 0.375rem;
+  width: 100%;
+  max-width: 24rem;
+}
+
+.login-title {
+  font-size: 1.875rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #1f2937;
+}
+
+.login-subtitle {
+  font-size: 0.875rem;
+  color: #4b5563;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.login-input {
+  border: 1px solid #e5e7eb;
+  padding: 0.5rem;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.login-error {
+  color: #ef4444;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.login-button {
+  background-color: #2563eb;
+  color: white;
+  padding: 0.5rem 1rem;
+  width: 100%;
+  border-radius: 0.375rem;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background-color: #1d4ed8;
+}
+
+.login-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

@@ -31,7 +31,8 @@
       "@hooks/*": ["hooks/*"],
       "@routes/*": ["routes/*"],
       "@services/*": ["services/*"],
-      "@layouts/*": ["layouts/*"]
+      "@layouts/*": ["layouts/*"],
+      "@utils/*": ["utils/*"],
     }
   },
   "include": ["src"]

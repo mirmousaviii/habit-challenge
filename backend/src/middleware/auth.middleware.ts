@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { TokenStore } from "@utils/token-store";
+import { TokenStore } from "@utils/token-store.util";
 import { unauthorizedResponse } from "@utils/response.util";
 
 const BEARER_PREFIX = "Bearer ";

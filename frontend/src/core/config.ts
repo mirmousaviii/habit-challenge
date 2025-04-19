@@ -6,7 +6,7 @@
 export const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api/v1";
 
 // Application Settings
-export const APP_NAME = import.meta.env.VITE_APP_NAME || "Habit Challenge";
+export const APP_NAME = import.meta.env.VITE_APP_NAME || "APP";
 
 // Authentication Settings
 export const AUTH_TOKEN_KEY = "habit_token";
@@ -29,4 +29,4 @@ export const API_ENDPOINTS = {
     BASE: "/habits",
     TOGGLE: (id: string) => `/habits/${id}/toggle`,
   },
-} as const; 
+} as const;

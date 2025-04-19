@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import { LoginView } from "@modules/auth";
-import { HabitDashboardView } from "@modules/habit";
+import { Login } from "@modules/auth";
+import { HabitDashboard } from "@modules/habit";
 import { useAuth } from "@hooks/useAuth";
 import { ROUTES, DEFAULT_ROUTE } from "./routes.config";
 import { JSX } from "react";
@@ -22,7 +22,7 @@ const AppRoutes = () => {
         path={ROUTES.AUTH.LOGIN}
         element={
           <PublicRoute>
-            <LoginView />
+            <Login />
           </PublicRoute>
         }
       />
@@ -30,7 +30,7 @@ const AppRoutes = () => {
         path={ROUTES.HABIT.DASHBOARD}
         element={
           <ProtectedRoute>
-            <HabitDashboardView />
+            <HabitDashboard />
           </ProtectedRoute>
         }
       />

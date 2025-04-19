@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { loginUser } from "../services/auth.api";
+import { loginUser } from "../services/authApi";
 import { useAuth } from "@hooks/useAuth";
 import { useNavigate } from "react-router-dom";
-import { APP_NAME } from "@modules/core";
+import { APP_NAME } from "@core/config";
+import "./LoginForm.css"; // Example of vanilla CSS!
 
 const LoginForm = () => {
   const { login } = useAuth();
@@ -33,34 +34,31 @@ const LoginForm = () => {
   };
 
   return (
-    <form
-      onSubmit={handleLogin}
-      className="bg-white p-8 shadow-md rounded w-full max-w-sm"
-    >
-      <h2 className="text-3xl font-extrabold mb-6 text-center text-gray-800">
+    <form onSubmit={handleLogin} className="login-form">
+      <h2 className="login-title">
         {APP_NAME || "Habit Challenge"}!
       </h2>
-      <p className="text-sm text-gray-600 mb-6 text-center">
+      <p className="login-subtitle">
         Login to continue your habit journey.
       </p>
       <input
-        className="border p-2 w-full mb-4"
+        className="login-input"
         placeholder="Username"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
       <input
-        className="border p-2 w-full mb-4"
+        className="login-input"
         type="password"
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+      {error && <p className="login-error">{error}</p>}
       <button
         type="submit"
         disabled={loading}
-        className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 w-full rounded"
+        className="login-button"
       >
         {loading ? "Logging in..." : "Login"}
       </button>

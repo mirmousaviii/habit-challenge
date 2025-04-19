@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
-import { HabitWithMeta } from "../types/habit.types";
-import { getAllHabits, toggleHabit as toggleHabitApi, deleteHabit as deleteHabitApi } from "../services/habit.api";
+import { HabitWithMeta } from "../modules/habit/types/habit.types";
+import { getAllHabits, toggleHabit as toggleHabitApi, deleteHabit as deleteHabitApi } from "../modules/habit/services/habitApi";
 
 export const useHabits = () => {
   const [habits, setHabits] = useState<HabitWithMeta[]>([]);
@@ -21,7 +21,9 @@ export const useHabits = () => {
   }, []);
 
   useEffect(() => {
-    fetchHabits();
+    fetchHabits().catch((err) => {
+      setError(err instanceof Error ? err : new Error("Failed to fetch habits"));
+    });
   }, [fetchHabits]);
 
   const toggleHabit = async (id: string) => {
@@ -50,4 +52,4 @@ export const useHabits = () => {
     deleteHabit,
     fetchHabits,
   };
-}; 
+};

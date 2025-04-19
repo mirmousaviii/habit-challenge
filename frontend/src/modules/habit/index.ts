@@ -1,1 +1,1 @@
-export * from './views/HabitDashboardView'; 
+export * from './views/HabitDashboard'; 

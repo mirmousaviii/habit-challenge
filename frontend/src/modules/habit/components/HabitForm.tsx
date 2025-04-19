@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createHabit } from "../services/habit.api";
+import { createHabit } from "../services/habitApi";
 import { useAuth } from "@hooks/useAuth";
 
 interface HabitFormProps {
@@ -42,7 +42,6 @@ const HabitForm = ({ onClose, onSuccess }: HabitFormProps) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-white p-6 rounded-xl shadow-md border border-slate-200 max-w-xl mx-auto"
     >
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-semibold text-indigo-700">
@@ -51,7 +50,7 @@ const HabitForm = ({ onClose, onSuccess }: HabitFormProps) => {
         <button
           type="button"
           onClick={onClose}
-          className="text-slate-500 hover:text-slate-700"
+          className="text-slate-500 hover:text-slate-900 text-xl"
         >
           ✕
         </button>
