@@ -1,7 +1,7 @@
 import express from "express";
-import authRoutes from "./routes/auth.routes";
-import habitRoutes from "./routes/habit.routes";
-import { authMiddleware } from "./middleware/auth.middleware";
+import authRoutes from "../modules/auth/auth.routes";
+import habitRoutes from "../modules/habit/habit.routes";
+import { authMiddleware } from "../middleware/auth.middleware";
 
 const app = express();
 

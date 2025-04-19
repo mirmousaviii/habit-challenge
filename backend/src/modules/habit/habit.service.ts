@@ -1,7 +1,7 @@
-import { HabitRepository } from "../repositories/HabitRepository";
-import { Habit } from "../models/habit.model";
-import { calculateStreak } from "../utils/streak.util";
-import { getLastCompletedDate } from "../utils/history.util";
+import { HabitRepository } from "./repository/habit.repository.interface";
+import { Habit } from "./habit.model";
+import { calculateStreak } from "../../utils/streak.util";
+import { getLastCompletedDate } from "../../utils/history.util";
 
 export class HabitService {
   constructor(private habitRepo: HabitRepository) {}

@@ -1,4 +1,4 @@
-import { config } from "../config/config";
+import { config } from "../core/config";
 
 export const mockUser = {
   username: config.auth.username,

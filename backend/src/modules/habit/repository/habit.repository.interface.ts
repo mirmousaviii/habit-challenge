@@ -1,4 +1,4 @@
-import { Habit } from "../models/habit.model";
+import { Habit } from "../habit.model";
 
 export interface HabitRepository {
   getAll(): Promise<Habit[]>;

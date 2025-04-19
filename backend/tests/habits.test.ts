@@ -1,6 +1,6 @@
 import request from "supertest";
-import app from "../src/app";
-import { config } from "../src/config/config";
+import app from "../src/core/app";
+import { config } from "../src/core/config";
 
 describe("Habit API", () => {
   let token: string;

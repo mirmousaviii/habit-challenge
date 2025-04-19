@@ -1,5 +1,5 @@
-import { HabitRepository } from "./HabitRepository";
-import { Habit } from "../models/habit.model";
+import { HabitRepository } from "./habit.repository.interface";
+import { Habit } from "../habit.model";
 import { v4 as uuidv4 } from "uuid";
 
 export class InMemoryHabitRepository implements HabitRepository {

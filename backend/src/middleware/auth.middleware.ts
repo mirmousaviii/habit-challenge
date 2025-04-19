@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { TokenStore } from "../auth/token-store";
+import { TokenStore } from "../utils/token-store";
 
 export const authMiddleware = (req: Request, res: Response, next: NextFunction): void => {
   const authHeader = req.headers.authorization;

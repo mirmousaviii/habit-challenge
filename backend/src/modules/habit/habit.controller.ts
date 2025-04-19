@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { HabitService } from "../services/habit.service";
+import { HabitService } from "./habit.service";
 
 export class HabitController {
   constructor(private habitService: HabitService) {}
