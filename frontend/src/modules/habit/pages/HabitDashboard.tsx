@@ -1,54 +1,63 @@
-import { useAuth } from "@context/AuthContext";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { getAllHabits, Habit } from "../services/habit.api";
-import HabitList from "../components/HabitList";
 import HabitForm from "../components/HabitForm";
+import HabitList from "../components/HabitList";
+import Layout from "@layouts/AppLayout";
 
 const HabitDashboard = () => {
-  const { token, logout } = useAuth();
   const [habits, setHabits] = useState<Habit[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const fetchHabits = async () => {
+  const fetchHabits = useCallback(async () => {
     setLoading(true);
+    setError("");
+
     try {
-      const data = await getAllHabits(token!);
+      const data = await getAllHabits();
       setHabits(data);
     } catch {
       setError("Failed to load habits");
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
-    if (token) fetchHabits();
-  }, [token]);
+    fetchHabits();
+  }, [fetchHabits]);
+
+  const renderContent = () => {
+    if (loading) {
+      return (
+        <div className="text-center text-sm text-slate-500 animate-pulse">
+          Loading your habits...
+        </div>
+      );
+    }
+
+    if (error) {
+      return <div className="text-center text-rose-500 text-sm">{error}</div>;
+    }
+
+    if (habits.length === 0) {
+      return (
+        <div className="text-center text-slate-500 text-sm italic">
+          No habits found. Start by creating one!
+        </div>
+      );
+    }
+
+    return <HabitList habits={habits} onChange={fetchHabits} />;
+  };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <header className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">My Habits</h1>
-        <button
-          onClick={logout}
-          className="bg-red-500 text-white px-4 py-2 rounded"
-        >
-          Logout
-        </button>
-      </header>
-
-      <HabitForm onCreated={fetchHabits} />
-
-      {loading && <p className="text-gray-500">Loading habits...</p>}
-      {error && <p className="text-red-500">{error}</p>}
-      {!loading && habits.length === 0 && (
-        <p className="text-gray-600">No habits found.</p>
-      )}
-      {!loading && habits.length > 0 && (
-        <HabitList habits={habits} onChange={fetchHabits} />
-      )}
-    </div>
+    <Layout>
+      <div className="max-w-xl mx-auto space-y-6">
+        <HabitForm onCreated={fetchHabits} />
+        {renderContent()}
+      </div>
+    </Layout>
   );
 };
 

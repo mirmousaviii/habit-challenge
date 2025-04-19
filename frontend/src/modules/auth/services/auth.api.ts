@@ -1,6 +1,12 @@
-import api from "@services/axios";
+import { api } from "@core/axios";
+import { LoginCredentials, LoginResponse } from "../types/auth.types";
 
-export const loginUser = async (username: string, password: string): Promise<string> => {
-  const res = await api.post("/auth/login", { username, password });
+/**
+ * Authenticate user and return JWT token
+ */
+export const loginUser = async (
+  credentials: LoginCredentials
+): Promise<string> => {
+  const res = await api.post<LoginResponse>("/auth/login", credentials);
   return res.data.token;
 };

@@ -1,47 +1,43 @@
-import api from "@services/axios";
+import { api } from "@core/axios";
+import {
+  Habit,
+  HabitWithMeta,
+  CreateHabitDto,
+} from "../types/habit.types";
 
-export interface Habit {
-  id: string;
-  name: string;
-  description?: string;
-  completedDates: string[];
-  streak: number;
-  lastCompletedDate: string | null;
+/**
+ * Fetch all habits from the backend.
+ * @returns Habit list including streak and lastCompletedDate
+ */
+export async function getAllHabits(): Promise<HabitWithMeta[]> {
+  const res = await api.get("/habits");
+  return res.data;
 }
 
-export const getAllHabits = async (token: string): Promise<Habit[]> => {
-  const response = await api.get("/habits", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  return response.data;
-};
+/**
+ * Create a new habit.
+ * @param data Habit name and optional description
+ * @returns Created habit
+ */
+export async function createHabit(data: CreateHabitDto): Promise<Habit> {
+  const res = await api.post("/habits", data);
+  return res.data;
+}
 
-export const createHabit = async (
-    data: { name: string; description?: string },
-    token: string
-  ): Promise<void> => {
-    await api.post("/habits", data, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-  };
+/**
+ * Toggle habit completion for today.
+ * @param id Habit ID
+ * @returns Updated habit
+ */
+export async function toggleHabit(id: string): Promise<Habit> {
+  const res = await api.patch(`/habits/${id}/toggle`);
+  return res.data;
+}
 
-export const toggleHabit = async (id: string, token: string): Promise<Habit> => {
-const response = await api.patch(`/habits/${id}/toggle`, null, {
-    headers: {
-    Authorization: `Bearer ${token}`,
-    },
-});
-return response.data;
-};
-
-export const deleteHabit = async (id: string, token: string): Promise<void> => {
-await api.delete(`/habits/${id}`, {
-    headers: {
-    Authorization: `Bearer ${token}`,
-    },
-});
-};
+/**
+ * Delete a habit by ID.
+ * @param id Habit ID
+ */
+export async function deleteHabit(id: string): Promise<void> {
+  await api.delete(`/habits/${id}`);
+}

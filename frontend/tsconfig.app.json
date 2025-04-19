@@ -25,11 +25,13 @@
     /* Path Alias */
     "baseUrl": "./src",
     "paths": {
+      "@core/*": ["core/*"],
       "@modules/*": ["modules/*"],
       "@context/*": ["context/*"],
       "@hooks/*": ["hooks/*"],
       "@routes/*": ["routes/*"],
-      "@services/*": ["services/*"]
+      "@services/*": ["services/*"],
+      "@layouts/*": ["layouts/*"]
     }
   },
   "include": ["src"]
