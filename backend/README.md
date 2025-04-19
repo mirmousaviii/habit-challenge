@@ -38,6 +38,14 @@ npm run build && npm start  # for production
 
 The API will be accessible at `http://localhost:3000` (or your configured PORT)
 
+### Testing
+
+This project uses [Jest](https://jestjs.io/) and [Supertest](https://github.com/ladjs/supertest) for backend testing.
+
+```bash
+npm test
+```
+
 ### TODO
 
 - [x] TypeScript + Express API setup
@@ -52,8 +60,7 @@ The API will be accessible at `http://localhost:3000` (or your configured PORT)
 - [x] Token memory store
 - [x] Add base config by `.env.example`
 - [x] Simple doc by README
-- [ ] Add unit tests using Jest
-- [ ] Add integration tests with Supertest
+- [x] Add unit tests
 - [ ] Use a real authentication system (JWT + refresh token)
 - [ ] Add user registration and habit ownership
 - [ ] Add pagination to GET /habits
@@ -124,3 +131,16 @@ While possible for small scripts, combining all logic into one file leads to tig
 ##### Why use a separate `config.ts` instead of directly reading from `process.env`?
 
 Using a centralized `config.ts` file improves maintainability, helps avoid typos in environment variable names, and makes testing or mocking configurations easier.
+
+## References
+
+This project was inspired and guided by modern JavaScript and backend architecture practices. Notable references include:
+
+- [Express.js Documentation](https://expressjs.com/)
+- [TypeScript Handbook](https://www.typescriptlang.org/docs/)
+- [Clean Architecture Principles](https://dev.to/thatanjan/clean-architecture-in-node-js-2ehf)
+- [Jest](https://jestjs.io/) – JavaScript testing framework
+- [Supertest](https://github.com/ladjs/supertest) – HTTP assertions for integration testing
+- [dotenv](https://github.com/motdotla/dotenv) – Environment variable support
+- [date-fns](https://date-fns.org/) – Modern date utility library
+- [Conventional Commits](https://www.conventionalcommits.org/) – For consistent commit messages
