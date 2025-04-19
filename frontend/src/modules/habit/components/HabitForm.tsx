@@ -3,10 +3,11 @@ import { createHabit } from "../services/habit.api";
 import { useAuth } from "@hooks/useAuth";
 
 interface HabitFormProps {
-  onCreated: () => void;
+  onClose: () => void;
+  onSuccess: () => Promise<void>;
 }
 
-const HabitForm = ({ onCreated }: HabitFormProps) => {
+const HabitForm = ({ onClose, onSuccess }: HabitFormProps) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
@@ -26,7 +27,8 @@ const HabitForm = ({ onCreated }: HabitFormProps) => {
       await createHabit({ name, description });
       setName("");
       setDescription("");
-      onCreated();
+      await onSuccess();
+      onClose();
     } catch (err) {
       setError("Failed to create habit");
       if (process.env.NODE_ENV === "development") {
@@ -42,9 +44,18 @@ const HabitForm = ({ onCreated }: HabitFormProps) => {
       onSubmit={handleSubmit}
       className="bg-white p-6 rounded-xl shadow-md border border-slate-200 max-w-xl mx-auto"
     >
-      <h2 className="text-xl font-semibold text-indigo-700 mb-4">
-        Create a New Habit
-      </h2>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-xl font-semibold text-indigo-700">
+          Create a New Habit
+        </h2>
+        <button
+          type="button"
+          onClick={onClose}
+          className="text-slate-500 hover:text-slate-700"
+        >
+          ✕
+        </button>
+      </div>
 
       <input
         type="text"

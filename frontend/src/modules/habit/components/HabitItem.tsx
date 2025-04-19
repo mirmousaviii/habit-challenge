@@ -1,13 +1,13 @@
 import {HabitWithMeta} from "../types/habit.types";
-import {deleteHabit, toggleHabit} from "../services/habit.api";
 import {useState} from "react";
 
 interface HabitItemProps {
     habit: HabitWithMeta;
-    onChange: () => void;
+    onToggle: () => Promise<void>;
+    onDelete: () => Promise<void>;
 }
 
-const HabitItem = ({habit, onChange}: HabitItemProps) => {
+const HabitItem = ({habit, onToggle, onDelete}: HabitItemProps) => {
     const [loading, setLoading] = useState(false);
 
     const today = new Date().toISOString().split("T")[0];
@@ -15,23 +15,26 @@ const HabitItem = ({habit, onChange}: HabitItemProps) => {
 
     const handleToggle = async () => {
         setLoading(true);
-        await toggleHabit(habit.id);
-        await onChange();
-        setLoading(false);
+        try {
+            await onToggle();
+        } finally {
+            setLoading(false);
+        }
     };
 
     const handleDelete = async () => {
         if (!confirm("Are you sure you want to delete this habit?")) return;
-        await deleteHabit(habit.id);
-        onChange();
+        await onDelete();
     };
 
     return (
         <li className="p-4 rounded-xl shadow-sm bg-white hover:shadow-md transition border border-slate-200 flex justify-between items-start gap-4">
             <div className="flex-1">
                 <h3 className="text-lg font-semibold text-slate-800">{habit.name}</h3>
-                {habit.description && (
-                    <p className="text-sm text-slate-600">{habit.description}</p>
+                {habit.description ? (
+                    <p className="text-sm text-slate-600">{habit?.description}</p>
+                ) : (
+                    <p className="text-sm text-slate-400 italic">No description</p>
                 )}
                 <p className="text-xs text-indigo-500 mt-1">
                     ✅ Streak: {habit.streak} | Last: {habit.lastCompletedDate || "-"}

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { loginUser } from "../services/auth.api";
 import { useAuth } from "@hooks/useAuth";
 import { useNavigate } from "react-router-dom";
-import { APP_NAME } from "@core/constants";
+import { APP_NAME } from "@modules/core";
 
 const LoginForm = () => {
   const { login } = useAuth();

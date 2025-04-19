@@ -1,4 +1,4 @@
-import { api } from "@core/axios";
+import { api, handleApiResponse, handleApiError, SuccessResponse, API_ENDPOINTS } from "@modules/core";
 import {
   Habit,
   HabitWithMeta,
@@ -10,8 +10,12 @@ import {
  * @returns Habit list including streak and lastCompletedDate
  */
 export async function getAllHabits(): Promise<HabitWithMeta[]> {
-  const res = await api.get("/habits");
-  return res.data;
+  try {
+    const res = await api.get<SuccessResponse<HabitWithMeta[]>>(API_ENDPOINTS.HABITS.BASE);
+    return handleApiResponse(res);
+  } catch (error) {
+    throw handleApiError(error);
+  }
 }
 
 /**
@@ -20,8 +24,12 @@ export async function getAllHabits(): Promise<HabitWithMeta[]> {
  * @returns Created habit
  */
 export async function createHabit(data: CreateHabitDto): Promise<Habit> {
-  const res = await api.post("/habits", data);
-  return res.data;
+  try {
+    const res = await api.post<SuccessResponse<Habit>>(API_ENDPOINTS.HABITS.BASE, data);
+    return handleApiResponse(res);
+  } catch (error) {
+    throw handleApiError(error);
+  }
 }
 
 /**
@@ -30,8 +38,12 @@ export async function createHabit(data: CreateHabitDto): Promise<Habit> {
  * @returns Updated habit
  */
 export async function toggleHabit(id: string): Promise<Habit> {
-  const res = await api.patch(`/habits/${id}/toggle`);
-  return res.data;
+  try {
+    const res = await api.patch<SuccessResponse<Habit>>(API_ENDPOINTS.HABITS.TOGGLE(id));
+    return handleApiResponse(res);
+  } catch (error) {
+    throw handleApiError(error);
+  }
 }
 
 /**
@@ -39,5 +51,9 @@ export async function toggleHabit(id: string): Promise<Habit> {
  * @param id Habit ID
  */
 export async function deleteHabit(id: string): Promise<void> {
-  await api.delete(`/habits/${id}`);
+  try {
+    await api.delete<SuccessResponse<void>>(`${API_ENDPOINTS.HABITS.BASE}/${id}`);
+  } catch (error) {
+    throw handleApiError(error);
+  }
 }

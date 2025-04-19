@@ -1,39 +1,40 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import LoginPage from "@modules/auth/pages/LoginPage";
-import HabitDashboard from "@modules/habit/pages/HabitDashboard";
+import { LoginView } from "@modules/auth";
+import { HabitDashboardView } from "@modules/habit";
 import { useAuth } from "@hooks/useAuth";
+import { ROUTES, DEFAULT_ROUTE } from "./routes.config";
 import { JSX } from "react";
 
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
   const { token } = useAuth();
-  return token ? children : <Navigate to="/login" replace />;
+  return token ? children : <Navigate to={ROUTES.AUTH.LOGIN} replace />;
 };
 
 const PublicRoute = ({ children }: { children: JSX.Element }) => {
   const { token } = useAuth();
-  return token ? <Navigate to="/dashboard" replace /> : children;
+  return token ? <Navigate to={ROUTES.HABIT.DASHBOARD} replace /> : children;
 };
 
 const AppRoutes = () => {
   return (
     <Routes>
       <Route
-        path="/login"
+        path={ROUTES.AUTH.LOGIN}
         element={
           <PublicRoute>
-            <LoginPage />
+            <LoginView />
           </PublicRoute>
         }
       />
       <Route
-        path="/dashboard"
+        path={ROUTES.HABIT.DASHBOARD}
         element={
           <ProtectedRoute>
-            <HabitDashboard />
+            <HabitDashboardView />
           </ProtectedRoute>
         }
       />
-      <Route path="*" element={<Navigate to="/login" replace />} />
+      <Route path="*" element={<Navigate to={DEFAULT_ROUTE} replace />} />
     </Routes>
   );
 };

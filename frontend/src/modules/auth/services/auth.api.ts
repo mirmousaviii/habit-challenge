@@ -1,4 +1,4 @@
-import { api } from "@core/axios";
+import { api, handleApiResponse, handleApiError, SuccessResponse, API_ENDPOINTS } from "@modules/core";
 import { LoginCredentials, LoginResponse } from "../types/auth.types";
 
 /**
@@ -7,6 +7,10 @@ import { LoginCredentials, LoginResponse } from "../types/auth.types";
 export const loginUser = async (
   credentials: LoginCredentials
 ): Promise<string> => {
-  const res = await api.post<LoginResponse>("/auth/login", credentials);
-  return res.data.token;
+  try {
+    const res = await api.post<SuccessResponse<LoginResponse>>(API_ENDPOINTS.AUTH.LOGIN, credentials);
+    return handleApiResponse(res).token;
+  } catch (error) {
+    throw handleApiError(error);
+  }
 };

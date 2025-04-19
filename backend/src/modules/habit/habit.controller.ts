@@ -1,6 +1,13 @@
 import { Request, Response } from "express";
 import { HabitService } from "./habit.service";
 import { HabitCreateDto } from "./habit.model";
+import { 
+  successResponse, 
+  createdResponse, 
+  noContentResponse, 
+  errorResponse, 
+  notFoundResponse 
+} from "@utils/response.util";
 
 export class HabitController {
   constructor(private habitService: HabitService) {}
@@ -8,9 +15,9 @@ export class HabitController {
   getAllHabits = async (req: Request, res: Response): Promise<void> => {
     try {
       const habits = await this.habitService.getAllHabits();
-      res.json(habits);
+      successResponse(res, 200, habits, "Habits retrieved successfully");
     } catch (error) {
-      res.status(500).json({ message: "Internal server error" });
+      errorResponse(res, 500, "Internal server error", "INTERNAL_SERVER_ERROR");
     }
   };
 
@@ -19,14 +26,14 @@ export class HabitController {
       const { name, description } = req.body as HabitCreateDto;
 
       if (!name) {
-        res.status(400).json({ message: "Name is required" });
+        errorResponse(res, 400, "Name is required", "MISSING_REQUIRED_FIELD");
         return;
       }
 
       const habit = await this.habitService.createHabit({ name, description });
-      res.status(201).json(habit);
+      createdResponse(res, habit, "Habit created successfully");
     } catch (error) {
-      res.status(500).json({ message: "Internal server error" });
+      errorResponse(res, 500, "Internal server error", "INTERNAL_SERVER_ERROR");
     }
   };
   
@@ -34,9 +41,9 @@ export class HabitController {
     try {
       const id = req.params.id;
       const updatedHabit = await this.habitService.toggleHabitForToday(id);
-      res.json(updatedHabit);
+      successResponse(res, 200, updatedHabit, "Habit status updated successfully");
     } catch (error) {
-      res.status(404).json({ message: (error as Error).message });
+      notFoundResponse(res, "Habit not found", "HABIT_NOT_FOUND");
     }
   };
   
@@ -44,11 +51,10 @@ export class HabitController {
     try {
       const id = req.params.id;
       await this.habitService.deleteHabit(id);
-      res.status(204).send(); // No content
+      noContentResponse(res);
     } catch (error) {
-      res.status(404).json({ message: (error as Error).message });
+      notFoundResponse(res, "Habit not found", "HABIT_NOT_FOUND");
     }
   };
-  
 }
 

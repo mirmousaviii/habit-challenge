@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { TokenStore } from "@utils/token-store";
+import { unauthorizedResponse } from "@utils/response.util";
 
 const BEARER_PREFIX = "Bearer ";
 
@@ -12,9 +13,7 @@ export const authMiddleware = (
 
   // Check header format
   if (!authHeader.startsWith(BEARER_PREFIX)) {
-    res
-      .status(401)
-      .json({ message: "Missing or invalid Authorization header" });
+    unauthorizedResponse(res, "Missing or invalid Authorization header", "INVALID_AUTH_HEADER");
     return;
   }
 
@@ -22,7 +21,7 @@ export const authMiddleware = (
 
   // Validate token
   if (!TokenStore.has(token)) {
-    res.status(401).json({ message: "Unauthorized" });
+    unauthorizedResponse(res, "Unauthorized", "INVALID_TOKEN");
     return;
   }
 

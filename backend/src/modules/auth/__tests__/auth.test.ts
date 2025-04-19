@@ -12,7 +12,8 @@ describe("Auth API", () => {
       });
 
     expect(res.statusCode).toBe(200);
-    expect(res.body).toHaveProperty("token");
+    expect(res.body.data).toHaveProperty("token");
+    expect(res.body.message).toBe("Login successful");
   });
 
   it("should fail login with invalid credentials", async () => {
@@ -24,6 +25,7 @@ describe("Auth API", () => {
       });
 
     expect(res.statusCode).toBe(401);
-    expect(res.body).toHaveProperty("message", "Invalid credentials");
+    expect(res.body.error).toHaveProperty("message", "Invalid credentials");
+    expect(res.body.error).toHaveProperty("code", "INVALID_CREDENTIALS");
   });
 });

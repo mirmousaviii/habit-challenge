@@ -3,14 +3,20 @@ import HabitItem from "./HabitItem";
 
 interface HabitListProps {
     habits: HabitWithMeta[];
-    onChange: () => void;
+    onToggle: (habit: HabitWithMeta) => Promise<void>;
+    onDelete: (id: string) => Promise<void>;
 }
 
-const HabitList = ({habits, onChange}: HabitListProps) => {
+const HabitList = ({habits, onToggle, onDelete}: HabitListProps) => {
     return (
         <ul className="space-y-4 mt-8 max-w-xl mx-auto">
             {habits.map((habit) => (
-                <HabitItem key={habit.id} habit={habit} onChange={onChange}/>
+                <HabitItem 
+                    key={habit.id} 
+                    habit={habit} 
+                    onToggle={() => onToggle(habit)}
+                    onDelete={() => onDelete(habit.id)}
+                />
             ))}
         </ul>
     );

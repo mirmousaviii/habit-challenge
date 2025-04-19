@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { useAuth } from "@hooks/useAuth";
-import { APP_NAME } from "@core/constants";
+import { APP_NAME } from "@modules/core";
 
 const Layout = ({ children }: { children: ReactNode }) => {
   const { logout } = useAuth();
