@@ -12,7 +12,7 @@ Users can create daily habits, toggle completion for today, and manage their hab
 - [x] Delete a habit
 - [x] Responsive and clean UI
 - [x] Token-based auth with protected routes
-- [ ] Dockerized the app
+- [x] Dockerized the app
 
 ## Tech Stack
 
@@ -25,7 +25,7 @@ Users can create daily habits, toggle completion for today, and manage their hab
 - **date-fns** – Streak and date utilities
 - **dotenv** – Environment variable management
 - **fs/promises** – File-based storage
-- **Jest** – Testing framework\
+- **Jest** – Testing framework
 
 
 ### Frontend
@@ -119,7 +119,7 @@ npm test
 #TODO: add frontend tests
 ```
 
-### TODO
+## TODO
 
 ##### Backend
 
