@@ -3,12 +3,16 @@ import { HabitService } from "./habit.service";
 import { FileHabitRepository } from "./repository/habit.repository.file";
 import { InMemoryHabitRepository } from "./repository/habit.repository.memory";
 import { config } from "@core/config";
+import { RepositoryType } from "./habit.model";
 
-// Choose repository based on config
-const habitRepository =
-  config.repoType === "file"
-    ? new FileHabitRepository()
-    : new InMemoryHabitRepository();
+// Dynamically select the repository implementation based on configuration
+const repositoryMap = {
+  [RepositoryType.FILE]: FileHabitRepository,
+  [RepositoryType.MEMORY]: InMemoryHabitRepository,
+};
+
+const RepositoryClass = repositoryMap[config.repoType];
+const habitRepository = new RepositoryClass();
 
 const habitService = new HabitService(habitRepository);
 const habitController = new HabitController(habitService);
