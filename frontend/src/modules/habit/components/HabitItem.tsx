@@ -48,7 +48,7 @@ const HabitItem = ({habit, onChange}: HabitItemProps) => {
                             : "text-indigo-600 border-indigo-500 hover:bg-indigo-50"
                     } disabled:opacity-50`}
                 >
-                    {loading ? "..." : completedToday ? "Done today" : "Mark done"}
+                    {loading ? "Loading..." : completedToday ? "Done today" : "Mark done"}
                 </button>
 
                 <button
