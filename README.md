@@ -27,14 +27,12 @@ Users can create daily habits, toggle completion for today, and manage their hab
 - **fs/promises** – File-based storage
 - **Jest** – Testing framework
 
-
 ### Frontend
- 
+
 - React with TypeScript
 - Tailwind CSS (modern styling)
 - Axios for API communication
 - React Router
-
 
 ## Getting Started
 
@@ -77,7 +75,6 @@ docker logs habit_frontend
 docker-compose down
 ```
 
-
 #### Setup Backend manually
 
 ```bash
@@ -119,6 +116,17 @@ npm test
 #TODO: add frontend tests
 ```
 
+## API Documentation with Swagger
+
+This project uses Swagger (OpenAPI) for API documentation. The Swagger UI is available at:
+
+### How to Use
+
+1. Start the backend server
+2. Navigate to `http://localhost:3000/api-docs` in your browser
+3. Explore the available endpoints
+4. Try out the API calls directly from the Swagger UI
+
 ## TODO
 
 ##### Backend
@@ -143,7 +151,7 @@ npm test
 - [ ] Use a real database (e.g. PostgreSQL)
 - [x] Dockerize the backend
 - [ ] Add GitHub Actions for CI (lint, test, build, publish)
-- [ ] Document the API using Swagger
+- [x] Document the API using Swagger
 
 ##### Frontend
 
@@ -165,6 +173,7 @@ npm test
 - [ ] ESLinting and Prettier for code formatting
 
 ##### Others
+
 - [ ] Add CI/CD pipeline for automated testing and deployment
 - [ ] E2E testing for the entire application
 - [x] Dockerize by docker-compose the app (frontend + backend)
@@ -260,3 +269,4 @@ This project is inspired by modern best practices for scalable Node.js and TypeS
 ![screenshot3](screenshots/screenshot_3.png)
 ![screenshot4](screenshots/screenshot_4.png)
 ![screenshot5](screenshots/screenshot_5.png)
+![swagger](screenshots/swagger.png)
