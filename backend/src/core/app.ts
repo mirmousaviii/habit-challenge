@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import authRoutes from "@modules/auth/auth.routes";
 import habitRoutes from "@modules/habit/habit.routes";
-import { authMiddleware } from "@middleware/auth.middleware";
+import { authMiddleware } from "@core/middleware/auth.middleware";
 
 const app = express();
 app.use(cors());
