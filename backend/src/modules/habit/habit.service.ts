@@ -17,11 +17,9 @@ export class HabitService {
   }
 
   async createHabit(data: HabitCreateDto): Promise<Habit> {
-    const newHabit: Habit = {
-      id: "", // will be generated in repository
+    const newHabit: HabitCreateDto = {
       name: data.name,
       description: data.description,
-      completedDates: [],
     };
 
     return this.habitRepo.create(newHabit);

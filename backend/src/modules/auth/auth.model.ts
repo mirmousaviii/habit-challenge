@@ -1,4 +1,3 @@
-
 /**
  * NOTE:
  * This file currently includes both the main Auth model and the DTO for login functionality.
@@ -10,6 +9,6 @@
  */
 
 export interface LoginDto {
-    username: string;
-    password: string;
-  }
+  username: string;
+  password: string;
+}
